@@ -64,6 +64,8 @@ namespace cse355.Controllers
         }
 
         // POST: Products/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductID,Material,VerticalSectionType,VerticalSectionSize,Alloy,SpecificWeightInKG,LengthInMeters,WeightOnePieceInKG,UnitPrice")] Product product)
@@ -79,7 +81,7 @@ namespace cse355.Controllers
 
         // GET: Products/Edit/5
         [Authorize]
-        public async Task<IActionResult> Edit(string? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -151,7 +153,7 @@ namespace cse355.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Product.FindAsync(id);
             if (product != null)

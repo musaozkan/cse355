@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,27 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cse355.Data;
 using cse355.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace cse355.Controllers
 {
-    public class CompaniesController : Controller
+    public class OrdersController : Controller
     {
-
         private readonly ApplicationDbContext _context;
 
-        public CompaniesController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Companies
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Company.ToListAsync());
+            return View(await _context.Order.ToListAsync());
         }
 
-        // GET: Companies/Details/5
+        // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,42 +33,39 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company
-
-                .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (Company == null)
+            var order = await _context.Order
+                .FirstOrDefaultAsync(m => m.OrderID == id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(Company);
+            return View(order);
         }
 
-        // GET: Companies/Create
-        [Authorize]
+        // GET: Orders/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Companies/Create
+        // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
+        public async Task<IActionResult> Create([Bind("OrderID,CustomerID,OrderDate,DeliveryAddress,TotalCost,Status")] Order order)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(Company);
+                _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(Company);
+            return View(order);
         }
 
-        // GET: Companies/Edit/5
-        [Authorize]
+        // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,22 +73,22 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company.FindAsync(id);
-            if (Company == null)
+            var order = await _context.Order.FindAsync(id);
+            if (order == null)
             {
                 return NotFound();
             }
-            return View(Company);
+            return View(order);
         }
 
-        // POST: Companies/Edit/5
+        // POST: Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderID,CustomerID,OrderDate,DeliveryAddress,TotalCost,Status")] Order order)
         {
-            if (id != Company.CompanyID)
+            if (id != order.OrderID)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace cse355.Controllers
             {
                 try
                 {
-                    _context.Update(Company);
+                    _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CompanyExists(Company.CompanyID))
+                    if (!OrderExists(order.OrderID))
                     {
                         return NotFound();
                     }
@@ -120,11 +113,10 @@ namespace cse355.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(Company);
+            return View(order);
         }
 
-        // GET: Companies/Delete/5
-        [Authorize]
+        // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,34 +124,34 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company
-                .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (Company == null)
+            var order = await _context.Order
+                .FirstOrDefaultAsync(m => m.OrderID == id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(Company);
+            return View(order);
         }
 
-        // POST: Companies/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Company = await _context.Company.FindAsync(id);
-            if (Company != null)
+            var order = await _context.Order.FindAsync(id);
+            if (order != null)
             {
-                _context.Company.Remove(Company);
+                _context.Order.Remove(order);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CompanyExists(int id)
+        private bool OrderExists(int id)
         {
-            return _context.Company.Any(e => e.CompanyID == id);
+            return _context.Order.Any(e => e.OrderID == id);
         }
     }
 }

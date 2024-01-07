@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,27 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cse355.Data;
 using cse355.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace cse355.Controllers
 {
-    public class CompaniesController : Controller
+    public class ArrivalLocationsController : Controller
     {
-
         private readonly ApplicationDbContext _context;
 
-        public CompaniesController(ApplicationDbContext context)
+        public ArrivalLocationsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Companies
+        // GET: ShipmentArrivalLocations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Company.ToListAsync());
+            return View(await _context.ShipmentArrivalLocations.ToListAsync());
         }
 
-        // GET: Companies/Details/5
+        // GET: ShipmentArrivalLocations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,42 +33,39 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company
-
-                .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (Company == null)
+            var shipmentArrivalLocations = await _context.ShipmentArrivalLocations
+                .FirstOrDefaultAsync(m => m.ShipmentID == id);
+            if (shipmentArrivalLocations == null)
             {
                 return NotFound();
             }
 
-            return View(Company);
+            return View(shipmentArrivalLocations);
         }
 
-        // GET: Companies/Create
-        [Authorize]
+        // GET: ShipmentArrivalLocations/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Companies/Create
+        // POST: ShipmentArrivalLocations/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
+        public async Task<IActionResult> Create([Bind("ShipmentID,ArrivalLocationID,ArrivalLocation")] ShipmentArrivalLocations shipmentArrivalLocations)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(Company);
+                _context.Add(shipmentArrivalLocations);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(Company);
+            return View(shipmentArrivalLocations);
         }
 
-        // GET: Companies/Edit/5
-        [Authorize]
+        // GET: ShipmentArrivalLocations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,22 +73,22 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company.FindAsync(id);
-            if (Company == null)
+            var shipmentArrivalLocations = await _context.ShipmentArrivalLocations.FindAsync(id);
+            if (shipmentArrivalLocations == null)
             {
                 return NotFound();
             }
-            return View(Company);
+            return View(shipmentArrivalLocations);
         }
 
-        // POST: Companies/Edit/5
+        // POST: ShipmentArrivalLocations/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
+        public async Task<IActionResult> Edit(int id, [Bind("ShipmentID,ArrivalLocationID,ArrivalLocation")] ShipmentArrivalLocations shipmentArrivalLocations)
         {
-            if (id != Company.CompanyID)
+            if (id != shipmentArrivalLocations.ShipmentID)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace cse355.Controllers
             {
                 try
                 {
-                    _context.Update(Company);
+                    _context.Update(shipmentArrivalLocations);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CompanyExists(Company.CompanyID))
+                    if (!ShipmentArrivalLocationsExists(shipmentArrivalLocations.ShipmentID))
                     {
                         return NotFound();
                     }
@@ -120,11 +113,10 @@ namespace cse355.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(Company);
+            return View(shipmentArrivalLocations);
         }
 
-        // GET: Companies/Delete/5
-        [Authorize]
+        // GET: ShipmentArrivalLocations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,34 +124,34 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company
-                .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (Company == null)
+            var shipmentArrivalLocations = await _context.ShipmentArrivalLocations
+                .FirstOrDefaultAsync(m => m.ShipmentID == id);
+            if (shipmentArrivalLocations == null)
             {
                 return NotFound();
             }
 
-            return View(Company);
+            return View(shipmentArrivalLocations);
         }
 
-        // POST: Companies/Delete/5
+        // POST: ShipmentArrivalLocations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Company = await _context.Company.FindAsync(id);
-            if (Company != null)
+            var shipmentArrivalLocations = await _context.ShipmentArrivalLocations.FindAsync(id);
+            if (shipmentArrivalLocations != null)
             {
-                _context.Company.Remove(Company);
+                _context.ShipmentArrivalLocations.Remove(shipmentArrivalLocations);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CompanyExists(int id)
+        private bool ShipmentArrivalLocationsExists(int id)
         {
-            return _context.Company.Any(e => e.CompanyID == id);
+            return _context.ShipmentArrivalLocations.Any(e => e.ShipmentID == id);
         }
     }
 }

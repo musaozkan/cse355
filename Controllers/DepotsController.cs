@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,27 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cse355.Data;
 using cse355.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace cse355.Controllers
 {
-    public class CompaniesController : Controller
+    public class DepotsController : Controller
     {
-
         private readonly ApplicationDbContext _context;
 
-        public CompaniesController(ApplicationDbContext context)
+        public DepotsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Companies
+        // GET: Depots
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Company.ToListAsync());
+            return View(await _context.Depot.ToListAsync());
         }
 
-        // GET: Companies/Details/5
+        // GET: Depots/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,42 +33,39 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company
-
-                .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (Company == null)
+            var depot = await _context.Depot
+                .FirstOrDefaultAsync(m => m.DepotID == id);
+            if (depot == null)
             {
                 return NotFound();
             }
 
-            return View(Company);
+            return View(depot);
         }
 
-        // GET: Companies/Create
-        [Authorize]
+        // GET: Depots/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Companies/Create
+        // POST: Depots/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
+        public async Task<IActionResult> Create([Bind("DepotID,District")] Depot depot)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(Company);
+                _context.Add(depot);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(Company);
+            return View(depot);
         }
 
-        // GET: Companies/Edit/5
-        [Authorize]
+        // GET: Depots/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,22 +73,22 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company.FindAsync(id);
-            if (Company == null)
+            var depot = await _context.Depot.FindAsync(id);
+            if (depot == null)
             {
                 return NotFound();
             }
-            return View(Company);
+            return View(depot);
         }
 
-        // POST: Companies/Edit/5
+        // POST: Depots/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
+        public async Task<IActionResult> Edit(int id, [Bind("DepotID,District")] Depot depot)
         {
-            if (id != Company.CompanyID)
+            if (id != depot.DepotID)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace cse355.Controllers
             {
                 try
                 {
-                    _context.Update(Company);
+                    _context.Update(depot);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CompanyExists(Company.CompanyID))
+                    if (!DepotExists(depot.DepotID))
                     {
                         return NotFound();
                     }
@@ -120,11 +113,10 @@ namespace cse355.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(Company);
+            return View(depot);
         }
 
-        // GET: Companies/Delete/5
-        [Authorize]
+        // GET: Depots/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,34 +124,34 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var Company = await _context.Company
-                .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (Company == null)
+            var depot = await _context.Depot
+                .FirstOrDefaultAsync(m => m.DepotID == id);
+            if (depot == null)
             {
                 return NotFound();
             }
 
-            return View(Company);
+            return View(depot);
         }
 
-        // POST: Companies/Delete/5
+        // POST: Depots/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Company = await _context.Company.FindAsync(id);
-            if (Company != null)
+            var depot = await _context.Depot.FindAsync(id);
+            if (depot != null)
             {
-                _context.Company.Remove(Company);
+                _context.Depot.Remove(depot);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CompanyExists(int id)
+        private bool DepotExists(int id)
         {
-            return _context.Company.Any(e => e.CompanyID == id);
+            return _context.Depot.Any(e => e.DepotID == id);
         }
     }
 }
