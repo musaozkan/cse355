@@ -20,5 +20,6 @@ namespace cse355.Data
         }
         public DbSet<cse355.Models.Company> Company { get; set; } = default!;
         public DbSet<cse355.Models.Product> Product { get; set; } = default!;
+        public DbSet<cse355.Models.Customer> Customer { get; set; } = default!;
     }
 }
