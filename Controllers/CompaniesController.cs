@@ -12,6 +12,7 @@ namespace cse355.Controllers
 {
     public class CompaniesController : Controller
     {
+
         private readonly ApplicationDbContext _context;
 
         public CompaniesController(ApplicationDbContext context)
