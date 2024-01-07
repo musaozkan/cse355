@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,14 +37,15 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var company = await _context.Company
+            var Company = await _context.Company
+
                 .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (company == null)
+            if (Company == null)
             {
                 return NotFound();
             }
 
-            return View(company);
+            return View(Company);
         }
 
         // GET: Companies/Create
@@ -57,15 +60,15 @@ namespace cse355.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyID,Name,District,PhoneNumber,MailAddress,Website")] Company company)
+        public async Task<IActionResult> Create([Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(company);
+                _context.Add(Company);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(company);
+            return View(Company);
         }
 
         // GET: Companies/Edit/5
@@ -77,12 +80,12 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var company = await _context.Company.FindAsync(id);
-            if (company == null)
+            var Company = await _context.Company.FindAsync(id);
+            if (Company == null)
             {
                 return NotFound();
             }
-            return View(company);
+            return View(Company);
         }
 
         // POST: Companies/Edit/5
@@ -90,9 +93,9 @@ namespace cse355.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CompanyID,Name,District,PhoneNumber,MailAddress,Website")] Company company)
+        public async Task<IActionResult> Edit(int id, [Bind("CompanyID,Name,District,PhoneNumber,FaxNumber,Website")] Company Company)
         {
-            if (id != company.CompanyID)
+            if (id != Company.CompanyID)
             {
                 return NotFound();
             }
@@ -101,12 +104,12 @@ namespace cse355.Controllers
             {
                 try
                 {
-                    _context.Update(company);
+                    _context.Update(Company);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CompanyExists(company.CompanyID))
+                    if (!CompanyExists(Company.CompanyID))
                     {
                         return NotFound();
                     }
@@ -117,7 +120,7 @@ namespace cse355.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(company);
+            return View(Company);
         }
 
         // GET: Companies/Delete/5
@@ -129,14 +132,14 @@ namespace cse355.Controllers
                 return NotFound();
             }
 
-            var company = await _context.Company
+            var Company = await _context.Company
                 .FirstOrDefaultAsync(m => m.CompanyID == id);
-            if (company == null)
+            if (Company == null)
             {
                 return NotFound();
             }
 
-            return View(company);
+            return View(Company);
         }
 
         // POST: Companies/Delete/5
@@ -144,10 +147,10 @@ namespace cse355.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var company = await _context.Company.FindAsync(id);
-            if (company != null)
+            var Company = await _context.Company.FindAsync(id);
+            if (Company != null)
             {
-                _context.Company.Remove(company);
+                _context.Company.Remove(Company);
             }
 
             await _context.SaveChangesAsync();
