@@ -39,7 +39,7 @@ namespace cse355.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
@@ -64,8 +64,6 @@ namespace cse355.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductID,Material,VerticalSectionType,VerticalSectionSize,Alloy,SpecificWeightInKG,LengthInMeters,WeightOnePieceInKG,UnitPrice")] Product product)
@@ -81,7 +79,7 @@ namespace cse355.Controllers
 
         // GET: Products/Edit/5
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -101,7 +99,7 @@ namespace cse355.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,Material,VerticalSectionType,VerticalSectionSize,Alloy,SpecificWeightInKG,LengthInMeters,WeightOnePieceInKG,UnitPrice")] Product product)
+        public async Task<IActionResult> Edit(string id, [Bind("ProductID,Material,VerticalSectionType,VerticalSectionSize,Alloy,SpecificWeightInKG,LengthInMeters,WeightOnePieceInKG,UnitPrice")] Product product)
         {
             if (id != product.ProductID)
             {
@@ -133,7 +131,7 @@ namespace cse355.Controllers
 
         // GET: Products/Delete/5
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {
@@ -153,7 +151,7 @@ namespace cse355.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var product = await _context.Product.FindAsync(id);
             if (product != null)
@@ -165,7 +163,7 @@ namespace cse355.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool ProductExists(string id)
         {
             return _context.Product.Any(e => e.ProductID == id);
         }
