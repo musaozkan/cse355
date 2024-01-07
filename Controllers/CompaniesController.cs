@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cse355.Data;
 using cse355.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cse355.Controllers
 {
@@ -45,6 +46,7 @@ namespace cse355.Controllers
         }
 
         // GET: Companies/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +69,7 @@ namespace cse355.Controllers
         }
 
         // GET: Companies/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,6 +121,7 @@ namespace cse355.Controllers
         }
 
         // GET: Companies/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
