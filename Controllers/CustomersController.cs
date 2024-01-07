@@ -86,7 +86,7 @@ namespace cse355.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,Name,District,PhoneNumber,FaxNumber,Website")] Customer customer)
+        public async Task<IActionResult> Edit(int? id, [Bind("CustomerID,Name,District,PhoneNumber,FaxNumber,Website")] Customer customer)
         {
             if (id != customer.CustomerID)
             {
@@ -102,7 +102,7 @@ namespace cse355.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.CustomerID))
+                    if (!customer.CustomerID.HasValue || !CustomerExists(customer.CustomerID.Value))
                     {
                         return NotFound();
                     }
