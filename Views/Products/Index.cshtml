@@ -1,0 +1,77 @@
+﻿@model IEnumerable<cse355.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Material)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VerticalSectionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VerticalSectionSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alloy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecificWeightInKG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LengthInMeters)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeightOnePieceInKG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VerticalSectionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VerticalSectionSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alloy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecificWeightInKG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LengthInMeters)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeightOnePieceInKG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

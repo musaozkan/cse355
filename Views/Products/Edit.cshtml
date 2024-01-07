@@ -1,0 +1,69 @@
+﻿@model cse355.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductID" />
+            <div class="form-group">
+                <label asp-for="Material" class="control-label"></label>
+                <input asp-for="Material" class="form-control" />
+                <span asp-validation-for="Material" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VerticalSectionType" class="control-label"></label>
+                <input asp-for="VerticalSectionType" class="form-control" />
+                <span asp-validation-for="VerticalSectionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VerticalSectionSize" class="control-label"></label>
+                <input asp-for="VerticalSectionSize" class="form-control" />
+                <span asp-validation-for="VerticalSectionSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Alloy" class="control-label"></label>
+                <input asp-for="Alloy" class="form-control" />
+                <span asp-validation-for="Alloy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificWeightInKG" class="control-label"></label>
+                <input asp-for="SpecificWeightInKG" class="form-control" />
+                <span asp-validation-for="SpecificWeightInKG" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LengthInMeters" class="control-label"></label>
+                <input asp-for="LengthInMeters" class="form-control" />
+                <span asp-validation-for="LengthInMeters" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeightOnePieceInKG" class="control-label"></label>
+                <input asp-for="WeightOnePieceInKG" class="form-control" />
+                <span asp-validation-for="WeightOnePieceInKG" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

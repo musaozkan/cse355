@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-cse355-6534eedc-6929-46a0-97cb-ccffd455b0ce</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Enum\**" />
+    <Content Remove="Data\Enum\**" />
+    <EmbeddedResource Remove="Data\Enum\**" />
+    <None Remove="Data\Enum\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\AppUserCustomer.cs" />
+    <Compile Remove="Models\Customer.cs" />
+    <Compile Remove="Models\Depot.cs" />
+    <Compile Remove="Models\DepotProductList.cs" />
+    <Compile Remove="Models\Order.cs" />
+    <Compile Remove="Models\Order_OrderedProduct.cs" />
+    <Compile Remove="Models\Order_Quantities.cs" />
+    <Compile Remove="Models\Shipment.cs" />
+    <Compile Remove="Models\ShipmentArrivalLocations.cs" />
+    <Compile Remove="Models\Truck.cs" />
+    <Compile Remove="Models\TruckDeliveryRoutes.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
